@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef _WIN32
 #include <intrin.h>
+#else
+#include <x86intrin.h>
+#endif
 #include <inttypes.h>
 
 inline uint64_t pack64(uint64_t a, uint64_t b, uint32_t shift = 32) {
@@ -32,9 +36,13 @@ inline uint32_t unpack32_lsb(uint32_t ab, uint32_t shift = 16) {
 }
 
 inline uint32_t clz(uint32_t n) {
+#ifdef _WIN32
   uint32_t index;
   uint8_t isNonzero = _BitScanReverse((unsigned long *)&index, n);
   return uint32_t(isNonzero ? 31 - index : 32);
+#else
+  return n == 0 ? 32 : __builtin_clz(n);
+#endif
 }
 
 inline uint32_t clz(uint64_t n) {

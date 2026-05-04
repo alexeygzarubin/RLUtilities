@@ -36,11 +36,11 @@ set(rlu_sources
   ${PROJECT_SOURCE_DIR}/src/mechanics/orientation.cc
 
   # misc
-  ${PROJECT_SOURCE_DIR}/src/misc/dll.cc
+  
   ${PROJECT_SOURCE_DIR}/src/misc/graph.cc
 
   # resource files for meshes, lookup tables, navigation data
-  ${PROJECT_SOURCE_DIR}/assets/assets.rc
+  
 
 )		
 
@@ -50,13 +50,13 @@ if (TARGET_LANGUAGE STREQUAL "cpp" OR TARGET_LANGUAGE STREQUAL "both")
     ${rlu_sources}
 
     #${PROJECT_SOURCE_DIR}/src/rlbot/bot.cc
-    ${PROJECT_SOURCE_DIR}/src/rlbot/interface.cc
-    ${PROJECT_SOURCE_DIR}/src/rlbot/renderer.cc
-    ${PROJECT_SOURCE_DIR}/src/rlbot/statesetting.cc
+    
+    
+    
   )
   target_include_directories(rlutilities_cpp PUBLIC inc)
   target_compile_features(rlutilities_cpp PUBLIC cxx_std_17)
-  target_link_libraries(rlutilities_cpp PUBLIC Xinput)
+  
 
   # ensures a consistent name when used with gcc, clang, msvc
   set_target_properties(rlutilities_cpp PROPERTIES PREFIX "") 
