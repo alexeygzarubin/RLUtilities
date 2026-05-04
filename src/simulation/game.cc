@@ -114,43 +114,11 @@ mat3 rotator_to_mat3(const rlbot::flat::Rotator *flat_vector) {
 }
 
 int Game::SetState() {
-  // This is an ugly hack, but at least it works
-  auto one_frame = std::chrono::milliseconds(1);
-  int error_code = Interface::SetGameState(*this);
-  std::this_thread::sleep_for(one_frame);
-  Interface::SetGameState(*this);  
-  std::this_thread::sleep_for(one_frame);
-  Interface::SetGameState(*this);  
-  std::this_thread::sleep_for(one_frame);
-  return error_code;
+  return 0;
 }
 
 UpdateStatus Game::GetState() {
-  UpdateStatus status;
-  ByteBuffer gametickData = Interface::UpdateLiveDataPacketFlatbuffer();
-  ByteBuffer fieldInfoData = Interface::UpdateFieldInfoFlatbuffer();
-
-  // Don't try to read the packets when they are very small.
-  if ((gametickData.size > 4) && (fieldInfoData.size > 4)) {
-    const rlbot::flat::GameTickPacket* gametickpacket =
-        flatbuffers::GetRoot<rlbot::flat::GameTickPacket>(gametickData.ptr);
-    const rlbot::flat::FieldInfo* fieldinfo =
-        flatbuffers::GetRoot<rlbot::flat::FieldInfo>(fieldInfoData.ptr);
-
-    // Only run the bot when we recieve a new packet.
-    if (time < gametickpacket->gameInfo()->secondsElapsed()) {
-      read_flatbuffer_packet(gametickpacket, fieldinfo); 
-      status = UpdateStatus::NewData;
-    } else {
-      status = UpdateStatus::OldData;
-    }
-  } else {
-    status = UpdateStatus::InvalidData;
-  }
-
-  Interface::Free(gametickData.ptr);
-  Interface::Free(fieldInfoData.ptr);
-  return status;
+  return UpdateStatus::InvalidData;
 }
 
 void Game::read_flatbuffer_packet(
