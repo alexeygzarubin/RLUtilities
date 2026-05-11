@@ -179,9 +179,10 @@ Curve CompositeArc::discretize(int n) {
   }
 
 
-  ds = L[4] / segments[4];
+  ds = (segments[4] > 0) ? (L[4] / segments[4]) : 0.0f;
   for (int i = 0; i <= segments[4]; i++) {
-    c.points[id] = vec3(lerp(p2, m2, float(i) / segments[4]));
+    float t = (segments[4] > 0) ? (float(i) / segments[4]) : 1.0f;
+    c.points[id] = vec3(lerp(p2, m2, t));
     c.curvatures[id] = ((i == 0) ? 0.25f / r2 : 0.0f);
     c.distances[id] = s;
     id++;

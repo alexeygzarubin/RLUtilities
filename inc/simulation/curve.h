@@ -9,7 +9,7 @@ struct ControlPoint {
   vec3 p, t, n;
 };
 
-class Curve {
+class __declspec(dllexport) Curve {
  public:
   float length;
   std::vector<vec3> points;
