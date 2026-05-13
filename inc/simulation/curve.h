@@ -5,11 +5,17 @@
 
 #include "linear_algebra/math.h"
 
+#ifdef _WIN32
+  #define RLUTILITIES_EXPORT __declspec(dllexport)
+#else
+  #define RLUTILITIES_EXPORT
+#endif
+
 struct ControlPoint {
   vec3 p, t, n;
 };
 
-class __declspec(dllexport) Curve {
+class RLUTILITIES_EXPORT Curve {
  public:
   float length;
   std::vector<vec3> points;
