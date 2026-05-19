@@ -36,11 +36,11 @@ set(rlu_sources
   ${PROJECT_SOURCE_DIR}/src/mechanics/orientation.cc
 
   # misc
-  
+  ${PROJECT_SOURCE_DIR}/src/misc/dll.cc
   ${PROJECT_SOURCE_DIR}/src/misc/graph.cc
 
   # resource files for meshes, lookup tables, navigation data
-  
+  ${PROJECT_SOURCE_DIR}/assets/assets.rc
 
 )		
 
