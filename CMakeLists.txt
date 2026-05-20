@@ -36,13 +36,16 @@ set(rlu_sources
   ${PROJECT_SOURCE_DIR}/src/mechanics/orientation.cc
 
   # misc
-  ${PROJECT_SOURCE_DIR}/src/misc/dll.cc
   ${PROJECT_SOURCE_DIR}/src/misc/graph.cc
 
-  # resource files for meshes, lookup tables, navigation data
-  ${PROJECT_SOURCE_DIR}/assets/assets.rc
+)
 
-)		
+if(WIN32)
+  list(APPEND rlu_sources
+    ${PROJECT_SOURCE_DIR}/src/misc/dll.cc
+    ${PROJECT_SOURCE_DIR}/assets/assets.rc
+  )
+endif()		
 
 if (TARGET_LANGUAGE STREQUAL "cpp" OR TARGET_LANGUAGE STREQUAL "both")
 
